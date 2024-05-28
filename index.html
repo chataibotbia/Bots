@@ -148,7 +148,8 @@
                 displayMessage(messageText, 'sent');
                 chatInput.value = '';
                 setTimeout(() => {
-                    displayMessage('Como posso ajudar?', 'received');
+                    displayMessage('Tudo Bem! Vou mandar você para nosso chat, aperte no botão logo abaixo.', 'received');
+                    displayMessage('<button onclick="window.location.href=\'go:chat\'">Entrar</button>', 'received');
                 }, 1000);
             }
         }
