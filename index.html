@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bia</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .chat-header {
+            padding: 15px;
+            background-color: #2e86de;
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 75%;
+        }
+        .message.sent {
+            background-color: #f1f1f1;
+            align-self: flex-end;
+            color: #333;
+        }
+        .message.received {
+            background-color: #2ecc71;
+            align-self: flex-start;
+            color: #fff;
+        }
+        .typing {
+            border-left: 3px solid #2e86de;
+            padding-left: 5px;
+            font-style: italic;
+            color: #2e86de;
+        }
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            border-radius: 0;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+        .chat-input button {
+            padding: 12px 20px;
+            background-color: #2e86de;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .chat-input button:hover {
+            background-color: #1e70bf;
+        }
+        .chat-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+        .chat-buttons button {
+            padding: 10px 20px;
+            background-color: #2e86de;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <img src="https://a.imagem.app/3sa1qi.jpeg" alt="Ícone da pessoa">
+            Bia
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message received">Olá! Sou a Bia. Posso ajudar? ☺️</div>
+            <div class="chat-buttons">
+                <button onclick="handleResponse(true)">Sim</button>
+                <button onclick="handleResponse(false)">Não</button>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Digite uma mensagem..." id="chat-input">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+    <script>
+        function displayMessage(message, type) {
+            const chatMessages = document.getElementById('chat-messages');
+            const newMessage = document.createElement('div');
+            newMessage.classList.add('message', type);
+            newMessage.innerHTML = message;
+            chatMessages.appendChild(newMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const messageText = chatInput.value.trim();
+
+            if (messageText) {
+                displayMessage(messageText, 'sent');
+                chatInput.value = '';
+                setTimeout(() => {
+                    displayMessage('Como posso ajudar?', 'received');
+                }, 1000);
+            }
+        }
+
+        function handleResponse(isYes) {
+            const chatMessages = document.getElementById('chat-messages');
+            const chatButtons = document.querySelector('.chat-buttons');
+            chatButtons.remove();
+
+            if (isYes) {
+                const detailedMessage = `
+                    Canal indisponível? Relaxa! ⌛<br>
+                    Seu canal favorito está em atualização. Volte em 24 horas e aproveite!<br><br>
+                    A cada dia, mais conteúdo de qualidade para você se divertir e se informar! ✨<br><br>
+                    Multiplataforma e sem limites! 📺📱👩🏻‍💻<br>
+                    Nosso app funciona em qualquer dispositivo Android: TV Box, Fire TV, Smart TVs, smartphones e muito mais!<br><br>
+                    Baixe agora e divirta-se! 🌐<br>
+                    Acesse <a href="https://www.abre.bio/blackcloudtv" target="_blank">www.abre.bio/blackcloudtv</a>, Baixe e instale o app no seu Android e aproveite ao máximo!<br><br>
+                    Dúvidas? Estamos aqui para te ajudar! 💬<br>
+                    Clique no chat online logo abaixo e fale com nossa equipe.
+                `;
+                displayMessage(detailedMessage, 'received');
+                displayMessage('<button onclick="window.location.href=\'go:chat\'">Saiba mais</button>', 'received');
+            } else {
+                displayMessage('Você clicou em "Não". Se precisar de algo, estarei aqui.', 'received');
+            }
+        }
+    </script>
+</body>
+</html>
